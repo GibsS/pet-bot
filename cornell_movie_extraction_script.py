@@ -51,6 +51,37 @@ def lineToText(line_line):
     else:
         return (-1, -1)
 
+def cleanText(text):
+    # decapitalize
+    text = text.lower()
+
+    # avoid "re"" being considered as a word
+    text = text.replace('you re ', 'you\'re ')
+    text = text.replace('you \' re', 'you\'re')
+    text = text.replace('you\' re', 'you\'re')
+    text = text.replace('we re ', 'we\'re')
+    text = text.replace('they re ', 'they\'re')
+    text = text.replace(' re ', ' re')
+
+    # punctuation and the like are not considered as part of words
+    text = text.replace('...', 'blablablablablablablabla')
+    text = text.replace('. ', ' . ')
+    text = text.replace(', ', ' , ')
+    text = text.replace('! ', ' ! ')
+    text = text.replace('? ', ' ? ')
+
+    text = text.replace('.\n', ' .\n')
+    text = text.replace('!\n', ' !\n')
+    text = text.replace('?\n', ' ?\n')
+
+    text = text.replace('--', '')
+    text = text.replace('blablablablablablablabla', ' ... ')
+
+    text = text.replace('i\' m', 'i\'m')
+    text = text.replace('i m', 'i\'m')
+
+    return text
+
 def generateData():
     convs, lines = getCornellText()
 
@@ -72,12 +103,14 @@ def generateData():
                 from_texts.append(line_dict[pair[0]])
                 to_texts.append(line_dict[pair[1]])
 
+    from_text = cleanText('\n'.join(from_texts))
+    to_text = cleanText('\n'.join(to_texts))
+
     with open(from_path, 'wb') as from_file:
-        for line in from_texts:
-            from_file.write(line + "\n")
+        from_file.write(from_text)
 
     with open(to_path, 'wb') as to_file:
-        for line in to_texts:
-            to_file.write(line + "\n")
-
-generateData()
+        to_file.write(to_text)
+            
+if __name__ == "__main__":
+    generateData()  

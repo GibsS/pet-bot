@@ -144,7 +144,6 @@ def create_model(session, forward_only):
   return model
 
 def train():
-  """Train a en->fr translation model using WMT data."""
   from_train = None
   to_train = None
   from_dev = None
