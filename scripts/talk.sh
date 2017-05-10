@@ -1,1 +1,1 @@
-python translate.py --decode --data_dir /tmp --train_dir /tmp --num_layers=2 --size=256
+python translate.py --decode --data_dir train/ --train_dir train/ 

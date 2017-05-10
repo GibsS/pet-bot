@@ -27,6 +27,7 @@ import tensorflow as tf
 
 import data_utils
 
+
 class Seq2SeqModel(object):
   """Sequence-to-sequence model with attention and for multiple buckets.
 
