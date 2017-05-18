@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 
 import translate
 
@@ -8,13 +8,19 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+	return "Hello World!"
 
 @app.route("/test")
 def hello_world():
-    res = translate.respondTo(sess, model, inVocab, outVocab, "hello")
-    print(res)
-    return 
+	res = translate.respondTo(sess, model, inVocab, outVocab, "hello")
+	print(res)
+	return res 
+
+@app.route("/ask", methods=['POST'])
+def ask():
+	res = translate.respondTo(sess, model, inVocab, outVocab, request.get_json()["message"])
+	print(res)
+	return res
 
 if __name__ == "__main__":
     app.run()

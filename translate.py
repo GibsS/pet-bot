@@ -326,7 +326,7 @@ def respondTo(sess, model, inVocab, outVocab, query):
   if data_utils.EOS_ID in outputs:
     outputs = outputs[:outputs.index(data_utils.EOS_ID)]
   
-  return [tf.compat.as_str(outVocab[output]) for output in outputs]
+  return " ".join([tf.compat.as_str(outVocab[output]) for output in outputs])
 
 def self_test():
   """Test the translation model."""
