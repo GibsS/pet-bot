@@ -1,10 +1,13 @@
-"""from flask import Flask, request
+from flask import Flask, request
 
 import translate
 
 sess, model, inVocab, outVocab = translate.setup()
 
 app = Flask(__name__)
+
+app.debug = False
+app.testing = False
 
 @app.route("/")
 def hello():
@@ -23,12 +26,4 @@ def ask():
 	return res
 
 if __name__ == "__main__":
-    app.run()
-"""
-
-from flask import Flask
-app = Flask(__name__)
-
-@app.route('/')
-def hello_world():
-	return 'Hello, World!'
+    app.run("0.0.0.0")
